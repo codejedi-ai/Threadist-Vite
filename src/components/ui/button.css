@@ -1,0 +1,90 @@
+/* Base Button Styles */
+.app-button {
+  padding: 0.75rem 1.25rem;
+  font-family: 'Courier New', monospace;
+  border: 2px solid #00ff99;
+  background-color: #014d38;
+  color: #b6fcb6;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-button:hover {
+  background-color: #026e51;
+  box-shadow: 0 0 8px rgba(0, 255, 153, 0.5);
+}
+
+.app-button:active {
+  transform: translateY(1px);
+}
+
+/* Primary Button */
+.app-button.primary {
+  background-color: #00ff99;
+  color: #014d38;
+  font-weight: bold;
+}
+
+.app-button.primary:hover {
+  background-color: #00cc7a;
+}
+
+/* Button Sizes */
+.app-button.size-small {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+.app-button.size-medium {
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+}
+
+.app-button.size-large {
+  padding: 1rem 1.75rem;
+  font-size: 1.2rem;
+}
+
+/* Icon Button */
+.icon-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #00ff99;
+  background-color: #014d38;
+  color: #b6fcb6;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-button:hover {
+  background-color: #026e51;
+  box-shadow: 0 0 8px rgba(0, 255, 153, 0.5);
+}
+
+/* Disabled state */
+.app-button:disabled,
+.icon-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.app-button:disabled:hover,
+.icon-button:disabled:hover {
+  background-color: #014d38;
+  box-shadow: none;
+  transform: none;
+}
+
+.app-button.primary:disabled:hover {
+  background-color: #00ff99;
+}

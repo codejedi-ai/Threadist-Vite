@@ -4,7 +4,7 @@ https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft
 
 
 
-### 
+### Minecraft Faction Defense Generator with 3D Viewer
 
 A tool for designing, visualizing and optimizing defensive structures for Minecraft faction gameplay and anarchy servers like 2b2t.
 

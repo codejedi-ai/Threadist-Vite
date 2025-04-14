@@ -1,0 +1,120 @@
+/* Home page specific styles */
+.home-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  
+  /* Hero section */
+  .hero-section {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+  }
+  
+  .glowing-text {
+    font-size: 3rem;
+    color: #b6fcb6;
+    text-shadow: 0 0 5px #00ff99, 0 0 10px #00ff99, 0 0 15px #00ff99;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  
+  .tagline {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+  
+  .highlight {
+    color: #00ff99;
+    font-weight: bold;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  
+  /* Preview container */
+  .preview-container {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .preview-image {
+    width: 100%;
+    max-width: 800px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 2px solid #00ff99;
+    box-shadow: 0 0 15px rgba(0, 255, 153, 0.3);
+  }
+  
+  .placeholder-preview {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0b1e15;
+    font-size: 1.5rem;
+    color: #00ff99;
+    border: 2px dashed #00ff99;
+  }
+  
+  /* Tabs */
+  .content-tabs {
+    margin: 3rem 0;
+  }
+  
+  .tab-headers {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #00ff99;
+    padding-bottom: 0.5rem;
+  }
+  
+  .tab-headers button {
+    background: #014d38;
+    border: 2px solid #00ff99;
+    color: #b6fcb6;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    border-radius: 6px 6px 0 0;
+    font-family: 'Courier New', monospace;
+    transition: all 0.2s;
+  }
+  
+  .tab-headers button.active {
+    background: #00ff99;
+    color: #014d38;
+    font-weight: bold;
+  }
+  
+  .tab-content {
+    padding: 1rem 0;
+  }
+  
+
+  .feature-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+  }
+  @media (max-width: 768px) {
+    .feature-list {
+      grid-template-columns: repeat(1, 1fr); /* Stacks items into a single column */
+    }
+  }
+  

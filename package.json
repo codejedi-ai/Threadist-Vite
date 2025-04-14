@@ -1,46 +1,20 @@
 {
-  "name": "awesomefalcon1",
-  "version": "0.1.0",
-  "homepage": "https://awesomefalcon1.github.io",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "gh-pages": "^6.1.1",
-    "install": "^0.13.0",
-    "npm": "^10.7.0"
-  }
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@supabase/supabase-js": "^2.49.1",
+		"preact": "^10.25.3",
+		"preact-iso": "^2.9.1",
+		"preact-router": "^4.1.2"
+	},
+	"devDependencies": {
+		"@preact/preset-vite": "^2.9.3",
+		"typescript": "^5.8.2",
+		"vite": "^6.0.4"
+	}
 }
