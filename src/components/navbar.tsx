@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import './Navbar.css';
+import './navbar.css';
 
 export default function Navbar() {
   return (
