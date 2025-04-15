@@ -6,6 +6,12 @@
 		"noEmit": true,
 		"allowJs": true,
 		"checkJs": true,
+		
+		/* Path Aliases */
+		"baseUrl": ".",
+		"paths": {
+			"@styles/*": ["styles/*"]
+		},
 
 		/* Preact Config */
 		"jsx": "react-jsx",

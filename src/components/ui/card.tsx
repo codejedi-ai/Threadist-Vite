@@ -1,4 +1,4 @@
-import { h } from 'preact';
+
 import './Card.css';
 
 type CardProps = {

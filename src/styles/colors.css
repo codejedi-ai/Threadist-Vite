@@ -49,10 +49,10 @@
 }
 
 /* Light Theme (Default) */
-:root {
+[data-theme="light"]  {
   /* Background Colors */
-  --background-primary: var(--gray-50);
-  --background-secondary: var(--green-50);
+  --background-primary: var(--green-100);
+  --background-secondary: var(--green-200);
   --background-tertiary: var(--green-100);
   --background-elevated: var(--gray-100);
   
@@ -132,6 +132,74 @@
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
   --glow-primary: 0 0 5px var(--purple-400), 0 0 10px var(--purple-400);
   --glow-secondary: 0 0 5px var(--green-300), 0 0 10px var(--green-300);
+}
+
+/* System Theme */
+[data-theme="system"] {
+  /* This will inherit from either light or dark theme based on system preference */
+  /* The theme provider will add either .dark or .light class to the document.documentElement */
+}
+
+/* System Theme - Light Variant */
+:root:not(.dark) [data-theme="system"] {
+  /* Inherit all light theme variables */
+  /* Background Colors */
+  --background-primary: var(--green-100);
+  --background-secondary: var(--green-200);
+  --background-tertiary: var(--green-100);
+  --background-elevated: var(--gray-100);
+  
+  /* Text Colors */
+  --text-primary: var(--purple-800);
+  --text-secondary: var(--purple-600);
+  --text-tertiary: var(--gray-600);
+  --text-inverted: var(--gray-50);
+  --text-accent: var(--green-500);
+  
+  /* Border Colors */
+  --border-primary: var(--green-300);
+  --border-secondary: var(--purple-200);
+  --border-tertiary: var(--gray-200);
+  
+  /* Component Colors */
+  --navbar-bg: var(--green-700);
+  --navbar-text: var(--green-100);
+  --sidebar-bg: var(--green-50);
+  --card-bg: var(--gray-50);
+  --card-border: var(--green-300);
+  --input-bg: var(--gray-50);
+  --input-border: var(--green-300);
+}
+
+/* System Theme - Dark Variant */
+:root.dark [data-theme="system"] {
+  /* Inherit all dark theme variables */
+  /* Background Colors */
+  --background-primary: var(--purple-900);
+  --background-secondary: var(--purple-800);
+  --background-tertiary: var(--purple-700);
+  --background-elevated: var(--purple-800);
+  
+  /* Text Colors */
+  --text-primary: var(--green-100);
+  --text-secondary: var(--green-200);
+  --text-tertiary: var(--gray-400);
+  --text-inverted: var(--purple-900);
+  --text-accent: var(--green-300);
+  
+  /* Border Colors */
+  --border-primary: var(--purple-500);
+  --border-secondary: var(--green-600);
+  --border-tertiary: var(--purple-700);
+  
+  /* Component Colors */
+  --navbar-bg: var(--purple-900);
+  --navbar-text: var(--purple-100);
+  --sidebar-bg: var(--purple-800);
+  --card-bg: var(--purple-800);
+  --card-border: var(--purple-600);
+  --input-bg: var(--purple-800);
+  --input-border: var(--purple-600);
 }
 
 /* Minecraft-Specific Elements */

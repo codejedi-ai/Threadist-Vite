@@ -1,4 +1,3 @@
-import React from 'preact/compat';
 import './Sidebar.css'; // Assuming you'll have a separate CSS file
 
 const LeftSidebar = () => {

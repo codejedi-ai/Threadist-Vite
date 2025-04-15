@@ -1,4 +1,4 @@
-import { h } from 'preact';
+
 import { JSX } from 'preact/jsx-runtime';
 import './Button.css';
 
