@@ -2,13 +2,17 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import Card from '../components/ui/card';
 import Button from '../components/ui/button';
+import HeroSectionFullScreen from '../components/HeroSectionFullScreen';
 import '../styles/home.css';
 
 export default function Home(props: { path?: string }) {
   return (
+    <div id="home">
+        <HeroSectionFullScreen />
     <div class="home-container">
       {/* Hero Section */}
-      <HeroSection />
+      
+
 
       {/* Preview Section */}
       <PreviewSection />
@@ -28,34 +32,11 @@ export default function Home(props: { path?: string }) {
       {/* Bottom CTA Section */}
       <BottomCTA />
     </div>
+    </div>
   );
 }
 
 /* Sub-components */
-
-// Hero Section
-function HeroSection() {
-  return (
-    <div class="hero-section">
-      <h1 class="glowing-text">Pandora Vault AI</h1>
-      <p class="tagline">
-        Design, visualize and optimize defensive structures for Minecraft faction gameplay 
-        and anarchy servers like <span class="highlight">2b2t</span>.
-      </p>
-      <div class="cta-buttons">
-        <Button 
-          primary 
-          label="Try the Generator" 
-          onClick={() => (window.location.href = '/builder')} 
-        />
-        <Button 
-          label="View Gallery" 
-          onClick={() => (window.location.href = '/gallery')} 
-        />
-      </div>
-    </div>
-  );
-}
 
 // Preview Section
 function PreviewSection() {

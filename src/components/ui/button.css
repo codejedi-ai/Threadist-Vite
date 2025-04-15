@@ -1,10 +1,13 @@
+/* Import the color system */
+@import '../../styles/colors.css';
+
 /* Base Button Styles */
 .app-button {
   padding: 0.75rem 1.25rem;
   font-family: 'Courier New', monospace;
-  border: 2px solid #00ff99;
-  background-color: #014d38;
-  color: #b6fcb6;
+  border: 2px solid var(--border-primary);
+  background-color: var(--button-secondary-bg);
+  color: var(--button-secondary-text);
   cursor: pointer;
   border-radius: 4px;
   font-size: 1rem;
@@ -16,8 +19,8 @@
 }
 
 .app-button:hover {
-  background-color: #026e51;
-  box-shadow: 0 0 8px rgba(0, 255, 153, 0.5);
+  background-color: var(--purple-500);
+  box-shadow: var(--shadow-md);
 }
 
 .app-button:active {
@@ -26,13 +29,14 @@
 
 /* Primary Button */
 .app-button.primary {
-  background-color: #00ff99;
-  color: #014d38;
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
   font-weight: bold;
 }
 
 .app-button.primary:hover {
-  background-color: #00cc7a;
+  background-color: var(--green-400);
+  box-shadow: var(--glow-primary);
 }
 
 /* Button Sizes */
@@ -59,16 +63,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #00ff99;
-  background-color: #014d38;
-  color: #b6fcb6;
+  border: 2px solid var(--border-primary);
+  background-color: var(--button-secondary-bg);
+  color: var(--button-secondary-text);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .icon-button:hover {
-  background-color: #026e51;
-  box-shadow: 0 0 8px rgba(0, 255, 153, 0.5);
+  background-color: var(--purple-500);
+  box-shadow: var(--glow-secondary);
 }
 
 /* Disabled state */
@@ -80,11 +84,11 @@
 
 .app-button:disabled:hover,
 .icon-button:disabled:hover {
-  background-color: #014d38;
+  background-color: var(--button-secondary-bg);
   box-shadow: none;
   transform: none;
 }
 
 .app-button.primary:disabled:hover {
-  background-color: #00ff99;
+  background-color: var(--button-primary-bg);
 }

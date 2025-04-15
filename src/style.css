@@ -1,141 +1,141 @@
+/* Import the color system */
+@import './styles/colors.css';
+
 /* ============================
    Base Styles
 ============================ */
 body {
-	font-family: 'Courier New', monospace;
-	background-color: #002d20;
-	color: #b6fcb6;
-	margin: 0;
-	padding: 0;
-  }
-  
-  .container {
-	max-width: 1200px;
-	margin: auto;
-	padding: 2rem;
-  }
-  
-  .main-layout {
-	display: grid;
-	grid-template-columns: 1fr 2fr 1fr;
-	gap: 2rem;
-	margin-top: 2rem;
-  }
-  
-  .viewer {
-	width: 100%;
-	height: 300px;
-	background: #0b1e15;
-	border: 2px dashed #00ff99;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 1.2rem;
-	color: #00ff99;
-  }
-  
-  /* ============================
-	 Navbar
-  ============================ */
-  .navbar {
-	position: sticky;
-	top: 0;
-	z-index: 100;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color: #003b29;
-	padding: 1rem 2rem;
-	border-bottom: 3px solid #00ff99;
-	box-shadow: 0 4px 8px rgba(0, 255, 153, 0.2);
-  }
-  
-  .navbar .nav-left,
-  .navbar .nav-right {
-	display: flex;
-	gap: 1rem;
-  }
-  
+  font-family: 'Courier New', monospace;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+}
 
-  
-  /* ============================
-	 Text Styles
-  ============================ */
-  
-  /* Headings */
-  h1, h2, h3, h4, h5, h6 {
-	color: #b6fcb6;
-	margin-top: 0;
-	font-weight: bold;
-  }
-  
-  h1 { font-size: 2.5rem; }
-  h2 { font-size: 2rem; }
-  h3 { font-size: 1.5rem; }
-  
-  /* Paragraphs */
-  p {
-	line-height: 1.6;
-	margin-bottom: 1rem;
-  }
-  
-  /* Links */
-  a {
-	color: #00ff99;
-	text-decoration: none;
-	transition: color 0.2s;
-  }
-  
-  a:hover {
-	color: #00b86b;
-	text-decoration: underline;
-  }
-  
-  /* Utility Text Classes */
-  .text-muted {
-	color: #66a384;
-  }
-  
-  .text-accent {
-	color: #00ff99;
-	font-weight: bold;
-  }
-  
-  .text-center {
-	text-align: center;
-  }
-  
-  .text-uppercase {
-	text-transform: uppercase;
-  }
-  
-  /* ============================
-	 Card / Panel Styles
-  ============================ */
-  .panel,
-  .footer .box {
-	background-color: #014d38;
-	border: 2px solid #00ff99;
-	border-radius: 10px;
-	padding: 1.5rem;
-	box-shadow: 0 0 10px #00ff99;
-	margin-bottom: 2rem;
-  }
-  
-  .footer {
-	display: flex;
-	justify-content: space-around;
-	flex-wrap: wrap;
-	background-color: #003322;
-	padding: 1rem;
-	border-top: 3px solid #00ff99;
-  }
-  
-  .footer .box {
-	margin: 0.5rem;
-	border-radius: 6px;
-	flex: 1;
-	min-width: 150px;
-	text-align: center;
-  }
-  
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.main-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.viewer {
+  width: 100%;
+  height: 300px;
+  background: var(--background-tertiary);
+  border: 2px dashed var(--border-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--text-accent);
+}
+
+/* ============================
+   Navbar
+============================ */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background-secondary);
+  padding: 1rem 2rem;
+  border-bottom: 3px solid var(--border-primary);
+  box-shadow: var(--shadow-lg);
+}
+
+.navbar .nav-left,
+.navbar .nav-right {
+  display: flex;
+  gap: 1rem;
+}
+
+/* ============================
+   Text Styles
+============================ */
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  margin-top: 0;
+  font-weight: bold;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+
+/* Paragraphs */
+p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Links */
+a {
+  color: var(--text-accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--green-300);
+  text-decoration: underline;
+}
+
+/* Utility Text Classes */
+.text-muted {
+  color: var(--text-tertiary);
+}
+
+.text-accent {
+  color: var(--text-accent);
+  font-weight: bold;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+/* ============================
+   Card / Panel Styles
+============================ */
+.panel,
+.footer .box {
+  background-color: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 2rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  background-color: var(--background-secondary);
+  padding: 1rem;
+  border-top: 3px solid var(--border-primary);
+}
+
+.footer .box {
+  margin: 0.5rem;
+  border-radius: 6px;
+  flex: 1;
+  min-width: 150px;
+  text-align: center;
+}
