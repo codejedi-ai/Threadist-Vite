@@ -1,35 +1,37 @@
-import Router from "preact-router";
-import Home from "./pages/Home";
-import Navbar from "./components/navbar";
-import { useState, useEffect, useContext } from 'preact/hooks';
+import React, { useContext } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Navbar from './components/navbar';
+import { ThemeProvider, ThemeContext } from './context/ThemeProvider';
 
-import LeftSidebar from "./components/sidebar/LeftSidebar";
-import { ThemeProvider, ThemeContext } from "./context/ThemeProvider";
-
-function About(props: { path?: string }) {
-  return <h1>{props.path} Welecome to the about page</h1>;
+// Example About component that optionally accepts a "path" prop
+function About({ path }: { path?: string }) {
+  return <h1>{path ? path + ' ' : ''}Welcome to the about page</h1>;
 }
 
-// The main app component that will be wrapped with ThemeProvider
+// Main app component that uses ThemeContext
 function AppContent() {
   const { isDarkMode } = useContext(ThemeContext);
-  
+
   return (
     <div id="app" data-theme={isDarkMode ? 'dark' : 'light'}>
-      <Navbar />
-      <Router>
-        <Home path="/" />
-        <About path="/about" />
-      </Router>
+      <div className="app-container">
+        <div className="content">
+          <Navbar />
+          <Home />
+        </div>
+      </div>
     </div>
   );
 }
 
-// Main App component with ThemeProvider
+// Main App component with ThemeProvider and Router wrapped around the content
 export default function App() {
   return (
     <ThemeProvider>
-      <AppContent />
+      <Router>
+        <AppContent />
+      </Router>
     </ThemeProvider>
   );
 }

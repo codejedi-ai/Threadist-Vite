@@ -1,5 +1,6 @@
-import React from 'preact/compat';
-import './HeroSectionFullScreen.css'; // Assuming the full-screen CSS
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './HeroSectionFullScreen.css'; // Corrected the CSS import path
 
 const HeroSectionFullScreen = () => {
   return (
@@ -11,14 +12,7 @@ const HeroSectionFullScreen = () => {
           Design, visualize and optimize defensive structures for Minecraft faction gameplay
           and anarchy servers like <span className="highlight">2b2t</span>.
         </p>
-        <div className="hero-buttons">
-          <button className="primary-button" onClick={() => (window.location.href = '/builder')}>
-            Try the Generator
-          </button>
-          <button className="secondary-button" onClick={() => (window.location.href = '/gallery')}>
-            View Gallery
-          </button>
-        </div>
+
       </div>
     </div>
   );

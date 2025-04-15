@@ -1,22 +1,22 @@
 {
-	"compilerOptions": {
-		"target": "ES2020",
-		"module": "ESNext",
-		"moduleResolution": "bundler",
-		"noEmit": true,
-		"allowJs": true,
-		"checkJs": true,
-		
-		/* Path Aliases */
-		"baseUrl": ".",
-		"paths": {
-			"@styles/*": ["styles/*"]
-		},
-
-		/* Preact Config */
-		"jsx": "react-jsx",
-		"jsxImportSource": "preact",
-		"skipLibCheck": true,
-	},
-	"include": ["node_modules/vite/client.d.ts", "**/*"]
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@context/*": ["./src/context/*"]
+    }
+  },
+  "include": ["src"]
 }

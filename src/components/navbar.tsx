@@ -1,19 +1,14 @@
+import React, { useContext } from 'react';
 import './navbar.css';
-import { useContext } from 'preact/hooks';
 import { ThemeContext } from '../context/ThemeProvider';
 
 export default function Navbar() {
   const { mode, setMode, isDarkMode } = useContext(ThemeContext);
-  
+
   const toggleTheme = () => {
-    // Cycle through light, dark, system modes
-    if (mode === 'light') {
-      setMode('dark');
-    } else if (mode === 'dark') {
-      setMode('system');
-    } else {
-      setMode('light');
-    }
+    const modes = ['light', 'dark', 'system'];
+    const nextMode = modes[(modes.indexOf(mode) + 1) % modes.length];
+    setMode(nextMode as 'dark' | 'light' | 'system');
   };
 
   // Get the appropriate icon for the current theme mode
@@ -31,17 +26,17 @@ export default function Navbar() {
   };
 
   return (
-    <nav class="navbar" role="navigation" aria-label="Main Navigation">
-      <div class="nav-left">
-        <a href="/" class="nav-link">Home</a>
-        <a href="/about" class="nav-link">About</a>
+    <nav className="navbar" role="navigation" aria-label="Main Navigation">
+      <div className="nav-left">
+        <a href="/" className="nav-link">Home</a>
+        <a href="/about" className="nav-link">About</a>
       </div>
-      <div class="nav-right">
-        <a href="/services" class="nav-link">Services</a>
-        <a href="/contact" class="nav-link">Contact</a>
-        <button 
-          onClick={toggleTheme} 
-          class="theme-toggle" 
+      <div className="nav-right">
+        <a href="/services" className="nav-link">Services</a>
+        <a href="/contact" className="nav-link">Contact</a>
+        <button
+          onClick={toggleTheme}
+          className="theme-toggle"
           aria-label={getThemeTooltip()}
           title={getThemeTooltip()}
         >

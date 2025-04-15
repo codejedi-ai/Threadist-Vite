@@ -1,5 +1,4 @@
-
-import { useState } from 'preact/hooks';
+import { Link } from 'react-router-dom';
 import Card from '../components/ui/card';
 import Button from '../components/ui/button';
 import HeroSectionFullScreen from '../components/HeroSectionFullScreen';
@@ -9,7 +8,7 @@ export default function Home(props: { path?: string }) {
   return (
     <div id="home">
         <HeroSectionFullScreen />
-    <div class="home-container">
+    <div className="home-container">
       {/* Hero Section */}
       
 
@@ -41,9 +40,9 @@ export default function Home(props: { path?: string }) {
 // Preview Section
 function PreviewSection() {
   return (
-    <div class="preview-container">
-      <div class="preview-image">
-        <div class="placeholder-preview">
+    <div className="preview-container">
+      <div className="preview-image">
+        <div className="placeholder-preview">
           <span>3D Defense Preview</span>
         </div>
       </div>
@@ -82,9 +81,9 @@ function FeaturesSection() {
   ];
 
   return (
-    <div class="features-section">
+    <div className="features-section">
       <h2>🛡️ Key Features</h2>
-      <div class="feature-list">
+      <div className="feature-list">
         {features.map((feature) => (
           <Card key={feature.title} title={`${feature.icon} ${feature.title}`}>
             <p>{feature.description}</p>
@@ -106,9 +105,9 @@ function FactionWarfareSection() {
   ];
 
   return (
-    <div class="specialized-section">
+    <div className="specialized-section">
       <h2>🔥 Specialized for Faction Warfare</h2>
-      <div class="feature-list">
+      <div className="feature-list">
         {specializedFeatures.map((item) => (
           <Card key={item.title} title={item.title}>
             <p>{item.description}</p>
@@ -129,9 +128,9 @@ function PhilosophySection() {
   ];
 
   return (
-    <div class="philosophy-section">
+    <div className="philosophy-section">
       <h2>🏠 Defense Philosophy</h2>
-      <ol class="feature-list">
+      <ol className="feature-list">
         {philosophyPrinciples.map((principle) => (
           <li key={principle.title}>
             <h3>{principle.title}</h3>
@@ -157,13 +156,13 @@ function TestimonialsSection() {
   ];
 
   return (
-    <div class="testimonials-section">
+    <div className="testimonials-section">
       <h2>What Players Are Saying</h2>
-      <div class="feature-list">
+      <div className="feature-list">
         {testimonials.map((testimonial, index) => (
           <Card key={index}>
             <p>"{testimonial.quote}"</p>
-            <span class="testimonial-author">- {testimonial.author}</span>
+            <span className="testimonial-author">- {testimonial.author}</span>
           </Card>
         ))}
       </div>
@@ -174,14 +173,8 @@ function TestimonialsSection() {
 // Bottom CTA Section
 function BottomCTA() {
   return (
-    <section class="bottom-cta">
+    <section className="bottom-cta">
       <h2>Ready to build your ultimate defense?</h2>
-      <Button 
-        primary
-        size="large"
-        label="Start Building Now" 
-        onClick={() => (window.location.href = '/builder')} 
-      />
     </section>
   );
 }

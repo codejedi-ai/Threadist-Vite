@@ -1,8 +1,8 @@
-
-import './Card.css';
+import React from 'react';
+import './Card.css'; // Assuming the CSS file is in the same directory
 
 type CardProps = {
-  children: preact.ComponentChildren;
+  children: React.ReactNode;
   className?: string;
   title?: string;
 };

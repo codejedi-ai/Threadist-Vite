@@ -1,5 +1,5 @@
-import { createContext, ComponentChildren } from 'preact';
-import { useState, useEffect } from 'preact/hooks';
+import React, { createContext, useState, useEffect } from 'react';
+
 
 export type LightDarkMode = {
   mode: 'light' | 'dark' | 'system',
@@ -11,7 +11,7 @@ export type LightDarkMode = {
 export const ThemeContext = createContext({} as LightDarkMode);
 
 // Create the provider component
-export function ThemeProvider({ children }: { children: ComponentChildren }) {
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState<'light' | 'dark' | 'system'>(() => {
     // Read saved preference from local storage on initial load
     return (localStorage.getItem('themeMode') as 'light' | 'dark' | 'system') || 'light';
@@ -62,19 +62,23 @@ export function ThemeProvider({ children }: { children: ComponentChildren }) {
   useEffect(() => {
     if (mode !== 'system') return () => {}; // Cleanup if mode changes
 
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    if (typeof window.matchMedia !== 'undefined') {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-    const handleChange = (e: MediaQueryListEvent) => {
-      setIsDarkMode(e.matches);
-      document.documentElement.classList.toggle('dark', e.matches);
-      const appElement = document.getElementById('app');
-      if (appElement) {
-        appElement.setAttribute('data-theme', 'system');
-      }
-    };
+      const handleChange = (e: MediaQueryListEvent) => {
+        setIsDarkMode(e.matches);
+        document.documentElement.classList.toggle('dark', e.matches);
+        const appElement = document.getElementById('app');
+        if (appElement && appElement.getAttribute('data-theme') !== 'system') {
+          appElement.setAttribute('data-theme', 'system');
+        }
+      };
 
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    } else {
+      console.warn('window.matchMedia is not supported in this environment.');
+    }
   }, [mode]);
 
   return (
