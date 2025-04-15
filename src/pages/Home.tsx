@@ -105,7 +105,7 @@ function FactionWarfareSection() {
   ];
 
   return (
-    <div className="specialized-section">
+    <div className="features-section">
       <h2>🔥 Specialized for Faction Warfare</h2>
       <div className="feature-list">
         {specializedFeatures.map((item) => (
@@ -156,7 +156,7 @@ function TestimonialsSection() {
   ];
 
   return (
-    <div className="testimonials-section">
+    <div className="features-section">
       <h2>What Players Are Saying</h2>
       <div className="feature-list">
         {testimonials.map((testimonial, index) => (

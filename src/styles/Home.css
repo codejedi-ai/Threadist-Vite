@@ -113,14 +113,48 @@
   border-top: none; /* Remove top border to connect with tabs */
 }
 
-.feature-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 16px;
-}
-
-@media (max-width: 768px) {
-  .feature-list {
-    grid-template-columns: repeat(1, 1fr); /* Stacks items into a single column */
+.philosophy-section {
+    margin: 3rem 0;
+    padding: 2rem;
+    background-color: var(--background-secondary);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
   }
-}
+  
+  .philosophy-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    text-shadow: var(--glow-primary);
+  }
+  
+  .feature-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .feature-list li {
+    background-color: var(--background-tertiary);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .feature-list li:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .feature-list h3 {
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+  }
+  
+  .feature-list p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
