@@ -1,37 +1,37 @@
-import React, { useContext } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Navbar from './components/navbar';
-import { ThemeProvider, ThemeContext } from './context/ThemeProvider';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ChakraProvider, ColorModeScript, Box } from "@chakra-ui/react";
+import Home from "./pages/Home";
+import Navbar from "./components/navbar";
+import theme from "./theme";
 
-// Example About component that optionally accepts a "path" prop
+// Optional About component
 function About({ path }: { path?: string }) {
-  return <h1>{path ? path + ' ' : ''}Welcome to the about page</h1>;
+  return <h1>{path ? path + " " : ""}Welcome to the about page</h1>;
 }
 
-// Main app component that uses ThemeContext
+// Main app content using Chakra's Box (which accepts style props)
 function AppContent() {
-  const { isDarkMode } = useContext(ThemeContext);
-
   return (
-    <div id="app" data-theme={isDarkMode ? 'dark' : 'light'}>
-      <div className="app-container">
-        <div className="content">
-          <Navbar />
-          <Home />
-        </div>
-      </div>
-    </div>
+    <Box id="app">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </Box>
   );
 }
 
-// Main App component with ThemeProvider and Router wrapped around the content
+// Main App component wrapped with ChakraProvider and Router
 export default function App() {
   return (
-    <ThemeProvider>
+    <ChakraProvider theme={theme}>
+      {/* ColorModeScript sets the initial color mode on page load */}
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Router>
         <AppContent />
       </Router>
-    </ThemeProvider>
+    </ChakraProvider>
   );
 }

@@ -1,20 +1,40 @@
+// HeroSectionFullScreen.tsx
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './HeroSectionFullScreen.css'; // Corrected the CSS import path
+import { Box, Flex, Heading, Text, Image } from '@chakra-ui/react';
 
 const HeroSectionFullScreen = () => {
   return (
-    <div className="hero-fullscreen-container">
-      <img src="/assets/hero-isometric-full.png" alt="Full Screen Isometric Showcase" className="hero-fullscreen-image" />
-      <div className="hero-overlay-content">
-        <h1 className="hero-title glowing-text">Pandora Vault AI</h1>
-        <p className="hero-subtitle">
+    <Box position="relative" w="100%" h="100vh" overflow="hidden">
+      <Image
+        src="/assets/hero-isometric-full.png"
+        alt="Full Screen Isometric Showcase"
+        objectFit="cover"
+        w="100%"
+        h="100vh"
+      />
+      <Flex
+        position="absolute"
+        top={0}
+        left={0}
+        w="100%"
+        h="100%"
+        align="center"
+        justify="center"
+        direction="column"
+        bg="rgba(0, 0, 0, 0.5)"
+      >
+        <Heading as="h1" size="2xl" color="white" mb={4}>
+          Pandora Vault AI
+        </Heading>
+        <Text fontSize="lg" color="white" textAlign="center" px={4}>
           Design, visualize and optimize defensive structures for Minecraft faction gameplay
-          and anarchy servers like <span className="highlight">2b2t</span>.
-        </p>
-
-      </div>
-    </div>
+          and anarchy servers like{' '}
+          <Text as="span" color="teal.300" fontWeight="bold">
+            2b2t
+          </Text>.
+        </Text>
+      </Flex>
+    </Box>
   );
 };
 

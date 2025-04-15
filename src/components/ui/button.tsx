@@ -1,27 +1,18 @@
 import React from 'react';
-import './Button.css'; // Assuming the CSS file is in the same directory
+import { Button as ChakraButton, ButtonProps as ChakraButtonProps } from "@chakra-ui/react"
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'default' | 'icon';
-  primary?: boolean;
-  size?: 'small' | 'medium' | 'large';
+interface ButtonProps extends ChakraButtonProps {
   label: string;
 }
 
 export default function Button({
-  variant = 'default',
-  primary = false,
-  size = 'medium',
   label,
-  className = '',
+  children,
   ...props
 }: ButtonProps) {
   return (
-    <button
-      className={`app-button ${primary ? 'primary' : ''} size-${size} ${className}`}
-      {...props}
-    >
-      {label}
-    </button>
+    <ChakraButton {...props}>
+      {label || children}
+    </ChakraButton>
   );
 }

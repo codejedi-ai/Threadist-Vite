@@ -1,17 +1,29 @@
 import React from 'react';
-import './Card.css'; // Assuming the CSS file is in the same directory
+import {
+  Card as ChakraCard,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Heading,
+  Box,
+  CardProps as ChakraCardProps,
+} from "@chakra-ui/react";
 
 type CardProps = {
   children: React.ReactNode;
   className?: string;
   title?: string;
-};
+  footer?: React.ReactNode;
+} & ChakraCardProps;
 
-export default function Card({ children, className = '', title }: CardProps) {
+export default function Card({ children, title, footer, ...props }: CardProps) {
   return (
-    <div className={`card-container ${className}`}>
-      {title && <h2 className="card-title">{title}</h2>}
-      {children}
-    </div>
+    <ChakraCard {...props}>
+      {title && <CardHeader><Heading size="md">{title}</Heading></CardHeader>}
+      <CardBody>
+        {children}
+      </CardBody>
+      {footer && <CardFooter>{footer}</CardFooter>}
+    </ChakraCard>
   );
 }
