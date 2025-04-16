@@ -3,26 +3,20 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ChakraProvider, ColorModeScript, Box } from "@chakra-ui/react";
 import Home from "./pages/Home";
 import Navbar from "./navbar";
-import theme from "./theme";
+import SignIn from "./pages/SignIn";
+import Chat from "./pages/Chat";
+import { extendTheme, ThemeConfig } from "@chakra-ui/react";
 
 import About from "./pages/About";
 
+const config: ThemeConfig = {
+  initialColorMode: "light",
+  useSystemColorMode: true,
+};
+
+const theme = extendTheme({ config });
 
 
-
-
-// Main Content with Routes
-function AppContent() {
-  return (
-    <Box id="app">
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </Box>
-  );
-}
 
 // Main App Component
 export default function App() {
@@ -30,7 +24,15 @@ export default function App() {
     <ChakraProvider theme={theme}>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Router>
-        <AppContent />
+      <Box id="app">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/sign-in" element={<SignIn/>} />
+        <Route path="/chat" element={<Chat/>} />
+      </Routes>
+    </Box>
       </Router>
     </ChakraProvider>
   );

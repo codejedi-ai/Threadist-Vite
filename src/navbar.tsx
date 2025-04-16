@@ -1,7 +1,7 @@
 // Navbar.tsx
 import React from 'react';
 import {
-  Box,
+  Heading,
   Flex,
   HStack,
   Link,
@@ -21,7 +21,7 @@ export default function Navbar() {
   const linkFontSize = 'md'; // You can adjust this size (e.g., 'sm', 'xs')
 
   return (
-    <Box
+    <Heading
       as="nav"
       role="navigation"
       aria-label="Main Navigation"
@@ -45,8 +45,8 @@ export default function Navbar() {
           </Link>
         </HStack>
         <HStack spacing={4}>
-          <Link href="/services" fontWeight="bold" color={linkColor} fontSize={linkFontSize}>
-            Services
+          <Link href="/chat" fontWeight="bold" color={linkColor} fontSize={linkFontSize}>
+            Chat
           </Link>
           <IconButton
             aria-label="Toggle theme"
@@ -60,6 +60,6 @@ export default function Navbar() {
           </Link>
         </HStack>
       </Flex>
-    </Box>
+    </Heading>
   );
 }
