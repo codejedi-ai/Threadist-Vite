@@ -45,9 +45,6 @@ export default function Navbar() {
           </Link>
         </HStack>
         <HStack spacing={4}>
-          <Link href="/chat" fontWeight="bold" color={linkColor} fontSize={linkFontSize}>
-            Chat
-          </Link>
           <IconButton
             aria-label="Toggle theme"
             icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
@@ -55,6 +52,9 @@ export default function Navbar() {
             variant="ghost"
             fontSize={linkFontSize} // Apply the same size to the icon (optional)
           />
+          <Link href="/chat" fontWeight="bold" color={linkColor} fontSize={linkFontSize}>
+            Chat
+          </Link>
           <Link href="/sign-in" fontWeight="bold" color={linkColor} fontSize={linkFontSize}>
             Sign In
           </Link>
