@@ -1,65 +1,42 @@
-// Navbar.tsx
 import React from 'react';
 import {
-  Heading,
+  Box,
   Flex,
   HStack,
   Link,
-  IconButton,
-  useColorMode,
+  Text,
   useColorModeValue,
-  Text
 } from '@chakra-ui/react';
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 export default function Navbar() {
-  const { colorMode, toggleColorMode } = useColorMode();
-
-  // Dynamic background color based on the active color mode
-  const bg = useColorModeValue('gray.100', 'gray.900');
-  const linkColor = useColorModeValue('teal.500', 'teal.200');
-  const linkFontSize = 'md'; // You can adjust this size (e.g., 'sm', 'xs')
+  const bg = useColorModeValue('brand.800', 'brand.900');
+  const linkColor = useColorModeValue('brand.300', 'brand.200');
 
   return (
-    <Heading
+    <Box
       as="nav"
-      role="navigation"
-      aria-label="Main Navigation"
       bg={bg}
       px={4}
       py={2}
       position="fixed"
       top={0}
       left={0}
-      width="100%"
+      right={0}
       zIndex={1000}
-      boxShadow="md"
+      borderBottom="1px solid"
+      borderColor="brand.700"
     >
-      <Flex justify="space-between" align="center">
-        <HStack spacing={4}>
-          <Link href="/" fontWeight="bold" color={linkColor} fontSize={linkFontSize}>
-            Home
-          </Link>
-          <Link href="/about" fontWeight="bold" color={linkColor} fontSize={linkFontSize}>
-            About
-          </Link>
-        </HStack>
-        <HStack spacing={4}>
-          <IconButton
-            aria-label="Toggle theme"
-            icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-            onClick={toggleColorMode}
-            variant="ghost"
-            fontSize={linkFontSize} // Apply the same size to the icon (optional)
-          />
-          <Link href="/chat" fontWeight="bold" color={linkColor} fontSize={linkFontSize}>
-            Chat
-          </Link>
-          <Link href="/sign-in" fontWeight="bold" color={linkColor} fontSize={linkFontSize}>
-            Sign In
-          </Link>
+      <Flex justify="space-between" align="center" maxW="full" mx="auto">
+        <Text fontSize="xl" fontWeight="bold" color={linkColor}>
+          CraftGPT
+        </Text>
+        <HStack spacing={8}>
+          <Link href="/" color={linkColor}>Home</Link>
+          <Link href="/about" color={linkColor}>About</Link>
+          <Link href="/chat" color={linkColor}>Chat</Link>
+          <Link href="/sign-in" color={linkColor}>Sign In</Link>
         </HStack>
       </Flex>
-    </Heading>
+    </Box>
   );
 }
