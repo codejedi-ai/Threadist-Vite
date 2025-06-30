@@ -1,12 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ChakraProvider, ColorModeScript, Box } from "@chakra-ui/react";
+import { AuthProvider } from "./context/AuthContext";
+import Landing from "./pages/Landing";
 import Home from "./pages/Home";
-import Navbar from "./navbar";
-import SignIn from "./pages/SignIn";
-import Chat from "./pages/Chat";
+import Navbar from "./components/Navbar";
+import Subreddit from "./pages/Subreddit";
+import Story from "./pages/Story";
+import Profile from "./pages/Profile";
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
-import About from "./pages/About";
 
 const config: ThemeConfig = {
   initialColorMode: "dark",
@@ -16,26 +18,38 @@ const config: ThemeConfig = {
 const theme = extendTheme({ 
   config,
   colors: {
-    brand: {
-      50: '#e6ffea',
-      100: '#b3ffc9',
-      200: '#80ffa8',
-      300: '#4dff87',
-      400: '#1aff66',
-      500: '#00e64d',
-      600: '#00b33c',
-      700: '#00802b',
-      800: '#004d1a',
-      900: '#001a09',
+    reddit: {
+      50: '#fff5f5',
+      100: '#fed7d7',
+      200: '#feb2b2',
+      300: '#fc8181',
+      400: '#f56565',
+      500: '#e53e3e',
+      600: '#c53030',
+      700: '#9b2c2c',
+      800: '#742a2a',
+      900: '#1a202c',
     },
+    orange: {
+      50: '#fffaf0',
+      100: '#feebc8',
+      200: '#fbd38d',
+      300: '#f6ad55',
+      400: '#ed8936',
+      500: '#dd6b20',
+      600: '#c05621',
+      700: '#9c4221',
+      800: '#7b341e',
+      900: '#652b19',
+    }
   },
   styles: {
-    global: {
+    global: (props: any) => ({
       body: {
-        bg: '#001a09',
-        color: 'white',
+        bg: props.colorMode === 'dark' ? '#0b1426' : '#dae0e6',
+        color: props.colorMode === 'dark' ? 'white' : 'black',
       },
-    },
+    }),
   },
 });
 
@@ -43,17 +57,20 @@ export default function App() {
   return (
     <ChakraProvider theme={theme}>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <Router>
-        <Box id="app">
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/chat" element={<Chat />} />
-          </Routes>
-        </Box>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Box id="app">
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/r/:subreddit" element={<Subreddit />} />
+              <Route path="/r/:subreddit/comments/:postId" element={<Story />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </Box>
+        </Router>
+      </AuthProvider>
     </ChakraProvider>
   );
 }
