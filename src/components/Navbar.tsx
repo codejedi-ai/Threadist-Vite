@@ -22,40 +22,22 @@ import {
 import { SearchIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { FaReddit } from 'react-icons/fa';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import AuthModal from './auth/AuthModal';
+import { useAuth0 } from '@auth0/auth0-react';
+import LoginButton from './auth/LoginButton';
+import LogoutButton from './auth/LogoutButton';
 import WaitlistModal from './waitlist/WaitlistModal';
 
 export default function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
-  const { user, signOut } = useAuth();
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const location = useLocation();
   const bg = useColorModeValue('white', '#1a1a1b');
   const borderColor = useColorModeValue('gray.200', '#343536');
   
   const isLandingPage = location.pathname === '/';
   
-  const { isOpen: isAuthOpen, onOpen: onAuthOpen, onClose: onAuthClose } = useDisclosure();
   const { isOpen: isWaitlistOpen, onOpen: onWaitlistOpen, onClose: onWaitlistClose } = useDisclosure();
-  const [authDefaultTab, setAuthDefaultTab] = useState(0);
 
-  const handleSignUp = () => {
-    setAuthDefaultTab(1);
-    onAuthOpen();
-  };
-
-  const handleSignIn = () => {
-    setAuthDefaultTab(0);
-    onAuthOpen();
-  };
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  };
 
   return (
     <>
@@ -122,19 +104,12 @@ export default function Navbar() {
                 >
                   Join Waitlist
                 </Button>
-                <Button
-                  variant="outline"
-                  onClick={handleSignIn}
-                >
+                <LoginButton variant="outline">
                   Sign In
-                </Button>
-                <Button
-                  colorScheme="orange"
-                  size="sm"
-                  onClick={handleSignUp}
-                >
+                </LoginButton>
+                <LoginButton colorScheme="orange" size="sm">
                   Sign Up
-                </Button>
+                </LoginButton>
               </HStack>
             )}
             
@@ -145,43 +120,42 @@ export default function Navbar() {
               variant="ghost"
             />
             
-            {!isLandingPage && user && (
+            {!isLandingPage && isAuthenticated && user && (
               <Menu>
                 <MenuButton>
                   <Avatar 
                     size="sm" 
-                    name={user.user_metadata?.full_name || user.email} 
+                    src={user.picture}
+                    name={user.name || user.email} 
                     bg="orange.500" 
                   />
                 </MenuButton>
                 <MenuList>
                   <MenuItem as={RouterLink} to="/profile">Profile</MenuItem>
                   <MenuItem>Settings</MenuItem>
-                  <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+                  <MenuItem>
+                    <LogoutButton variant="ghost" size="sm">
+                      Sign Out
+                    </LogoutButton>
+                  </MenuItem>
                 </MenuList>
               </Menu>
             )}
 
-            {!isLandingPage && !user && (
+            {!isLandingPage && !isAuthenticated && !isLoading && (
               <HStack spacing={2}>
-                <Button variant="ghost" onClick={handleSignIn}>
+                <LoginButton variant="ghost">
                   Sign In
-                </Button>
-                <Button colorScheme="orange" size="sm" onClick={handleSignUp}>
+                </LoginButton>
+                <LoginButton colorScheme="orange" size="sm">
                   Sign Up
-                </Button>
+                </LoginButton>
               </HStack>
             )}
           </HStack>
         </Flex>
       </Box>
 
-      <AuthModal 
-        isOpen={isAuthOpen} 
-        onClose={onAuthClose} 
-        defaultTab={authDefaultTab}
-      />
-      
       <WaitlistModal 
         isOpen={isWaitlistOpen} 
         onClose={onWaitlistClose} 
