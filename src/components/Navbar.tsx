@@ -55,7 +55,7 @@ export default function Navbar() {
         borderColor={borderColor}
         boxShadow="sm"
       >
-        <Flex justify="space-between" align="center" maxW="1200px" mx="auto">
+        <Flex justify="space-between" align="center" w="full" px={4}>
           <Link as={RouterLink} to="/" _hover={{ textDecoration: 'none' }}>
             <HStack spacing={2}>
               <FaReddit size={32} color="#ff4500" />
