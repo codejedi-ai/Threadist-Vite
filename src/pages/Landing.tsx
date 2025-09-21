@@ -17,6 +17,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { FaPlay, FaVolumeUp, FaReddit, FaRocket, FaUsers, FaClock } from 'react-icons/fa';
+import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from '../components/auth/LoginButton';
@@ -65,9 +66,9 @@ const StoryPreview = () => {
           bg={useColorModeValue('gray.50', '#161617')}
           minW="50px"
         >
-          <Icon as={FaPlay} color="gray.400" />
+          <ChevronUpIcon color="gray.400" />
           <Text fontSize="sm" fontWeight="bold">2.8k</Text>
-          <Icon as={FaPlay} color="gray.400" transform="rotate(180deg)" />
+          <ChevronDownIcon color="gray.400" />
         </VStack>
         <VStack flex={1} align="stretch" spacing={3} p={4}>
           <HStack spacing={2} fontSize="sm" color="gray.500">
