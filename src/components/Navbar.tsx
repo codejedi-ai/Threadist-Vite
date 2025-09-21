@@ -56,16 +56,14 @@ export default function Navbar() {
         boxShadow="sm"
       >
         <Flex justify="space-between" align="center" maxW="1200px" mx="auto">
-          <HStack spacing={4}>
-            <Link as={RouterLink} to="/" _hover={{ textDecoration: 'none' }}>
-              <HStack spacing={2}>
-                <FaReddit size={32} color="#ff4500" />
-                <Text fontSize="xl" fontWeight="bold" color="orange.500">
-                  Threadist
-                </Text>
-              </HStack>
-            </Link>
-          </HStack>
+          <Link as={RouterLink} to="/" _hover={{ textDecoration: 'none' }}>
+            <HStack spacing={2}>
+              <FaReddit size={32} color="#ff4500" />
+              <Text fontSize="xl" fontWeight="bold" color="orange.500">
+                Threadist
+              </Text>
+            </HStack>
+          </Link>
 
           {!isLandingPage && (
             <Box flex={1} maxW="600px" mx={8}>
@@ -87,9 +85,9 @@ export default function Navbar() {
             </Box>
           )}
 
-          <HStack spacing={4}>
+          <HStack spacing={4} align="center">
             {isLandingPage && !user && (
-              <HStack spacing={2}>
+              <>
                 <Button
                   as={RouterLink}
                   to="/home"
@@ -110,16 +108,9 @@ export default function Navbar() {
                 <LoginButton colorScheme="orange" size="sm">
                   Sign Up
                 </LoginButton>
-              </HStack>
+              </>
             )}
-            
-            <IconButton
-              aria-label="Toggle color mode"
-              icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-              onClick={toggleColorMode}
-              variant="ghost"
-            />
-            
+
             {!isLandingPage && isAuthenticated && user && (
               <Menu>
                 <MenuButton>
@@ -143,15 +134,22 @@ export default function Navbar() {
             )}
 
             {!isLandingPage && !isAuthenticated && !isLoading && (
-              <HStack spacing={2}>
+              <>
                 <LoginButton variant="ghost">
                   Sign In
                 </LoginButton>
                 <LoginButton colorScheme="orange" size="sm">
                   Sign Up
                 </LoginButton>
-              </HStack>
+              </>
             )}
+
+            <IconButton
+              aria-label="Toggle color mode"
+              icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+              onClick={toggleColorMode}
+              variant="ghost"
+            />
           </HStack>
         </Flex>
       </Box>
