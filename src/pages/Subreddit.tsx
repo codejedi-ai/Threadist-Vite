@@ -13,12 +13,19 @@ import {
   Divider,
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
+import { useStories } from '../hooks/useStories';
 import StoryCard from '../components/StoryCard';
 import Sidebar from '../components/Sidebar';
-import { FaPlus, FaBell, FaVolumeUp } from 'react-icons/fa';
+import { FaPlus, FaBell, FaVolumeUp, FaSpinner } from 'react-icons/fa';
 
 export default function Subreddit() {
   const { subreddit } = useParams();
+  const { stories, loading, error, refetch } = useStories({
+    subreddit: subreddit || '',
+    sort: 'hot',
+    limit: 20,
+  });
+  
   const bg = useColorModeValue('#dae0e6', '#0b1426');
   const headerBg = useColorModeValue('white', '#1a1a1b');
   const borderColor = useColorModeValue('gray.200', '#343536');
@@ -32,22 +39,6 @@ export default function Subreddit() {
     created: 'Created Jan 25, 2010',
     icon: '👻'
   };
-
-  // Mock stories for this subreddit
-  const mockStories = [
-    {
-      id: '1',
-      title: 'I found a door in my basement that wasn\'t there yesterday',
-      content: 'This happened three days ago, and I still can\'t wrap my head around it...',
-      author: 'throwaway_scared123',
-      subreddit: subredditData.name,
-      upvotes: 2847,
-      comments: 312,
-      createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000),
-      isNarrated: true,
-      audioUrl: '/audio/story1.mp3'
-    }
-  ];
 
   return (
     <Box bg={bg} minH="100vh" pt="60px">
@@ -102,11 +93,41 @@ export default function Subreddit() {
         <Flex gap={6}>
           {/* Main Content */}
           <Box flex={1}>
-            <VStack spacing={4} align="stretch">
-              {mockStories.map((story) => (
-                <StoryCard key={story.id} story={story} />
-              ))}
-            </VStack>
+            {loading ? (
+              <VStack spacing={4} py={8}>
+                <Spinner size="lg" color="orange.500" />
+                <Text color="gray.500">Loading stories...</Text>
+              </VStack>
+            ) : error ? (
+              <Alert status="error">
+                <AlertIcon />
+                <VStack align="flex-start" spacing={2}>
+                  <Text>{error}</Text>
+                  <Button size="sm" onClick={refetch}>
+                    Try Again
+                  </Button>
+                </VStack>
+              </Alert>
+            ) : stories.length === 0 ? (
+              <VStack spacing={4} py={8}>
+                <Text color="gray.500">No stories found in r/{subreddit}</Text>
+                <Button onClick={refetch}>Refresh</Button>
+              </VStack>
+            ) : (
+              <VStack spacing={4} align="stretch">
+                {stories.map((story) => (
+                  <StoryCard 
+                    key={story.id} 
+                    story={{
+                      ...story,
+                      createdAt: new Date(story.created_at),
+                      isNarrated: story.is_narrated,
+                      audioUrl: story.audio_url,
+                    }} 
+                  />
+                ))}
+              </VStack>
+            )}
           </Box>
 
           {/* Sidebar */}

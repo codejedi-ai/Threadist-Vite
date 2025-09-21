@@ -14,53 +14,30 @@ import {
   Tab,
   TabPanel,
   Badge,
+  Spinner,
+  Alert,
+  AlertIcon,
 } from '@chakra-ui/react';
 import StoryCard from '../components/StoryCard';
 import Sidebar from '../components/Sidebar';
 import { FaFire, FaRocket, FaClock, FaVolumeUp } from 'react-icons/fa';
-
-// Mock data
-const mockStories = [
-  {
-    id: '1',
-    title: 'I found a door in my basement that wasn\'t there yesterday',
-    content: 'This happened three days ago, and I still can\'t wrap my head around it. I\'ve lived in this house for over ten years, and I know every inch of it like the back of my hand. The basement has always been my workshop - tools organized on pegboards, workbench in the corner, concrete walls painted white to make the space feel less dungeon-like. But when I went down there Tuesday morning to grab my drill, there was a door. A wooden door, painted the same white as the walls, with a brass handle that looked like it had been there for decades. The thing is, I painted those walls myself five years ago. There was no door...',
-    author: 'throwaway_scared123',
-    subreddit: 'nosleep',
-    upvotes: 2847,
-    comments: 312,
-    createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000),
-    isNarrated: true,
-    audioUrl: '/audio/story1.mp3'
-  },
-  {
-    id: '2',
-    title: 'TIFU by accidentally joining a Zoom call while my girlfriend was practicing her OnlyFans content',
-    content: 'This literally happened 30 minutes ago and I\'m still mortified. I work from home and have back-to-back meetings all day. My girlfriend also works from home doing content creation (she has an OnlyFans account, which I\'m totally supportive of). We usually coordinate our schedules to avoid any awkward situations. Today, I had what I thought was a routine team meeting at 2 PM. I clicked the Zoom link, joined the call, and immediately noticed something was off. First, there were way more people than usual - like 50+ participants instead of our usual 8-person team. Second, everyone had their cameras off except... my girlfriend, who was in the middle of what can only be described as a very enthusiastic performance in our living room, which is visible from my home office...',
-    author: 'embarrassed_bf_2024',
-    subreddit: 'tifu',
-    upvotes: 15420,
-    comments: 1205,
-    createdAt: new Date(Date.now() - 4 * 60 * 60 * 1000),
-    isNarrated: false
-  },
-  {
-    id: '3',
-    title: 'My neighbor has been leaving increasingly bizarre notes on my door',
-    content: 'I moved into my apartment six months ago, and for the first few months, everything was normal. My neighbor across the hall seemed like a quiet, older woman who kept to herself. Then the notes started. The first one was innocent enough: "Your music was a bit loud last night. Please keep it down after 10 PM. Thanks, Margaret." Fair enough, I thought, even though I hadn\'t played any music that night. I made sure to be extra quiet anyway. The second note came a week later: "I can hear you walking around at night. The floorboards creak. Please wear slippers." Again, weird but not completely unreasonable. I bought some slippers. But then the notes got stranger...',
-    author: 'confused_tenant',
-    subreddit: 'LetsNotMeet',
-    upvotes: 892,
-    comments: 156,
-    createdAt: new Date(Date.now() - 6 * 60 * 60 * 1000),
-    isNarrated: true,
-    audioUrl: '/audio/story3.mp3'
-  }
-];
+import { useStories } from '../hooks/useStories';
 
 export default function Home() {
   const [selectedTab, setSelectedTab] = useState(0);
+  const sortOptions = ['hot', 'rising', 'new'] as const;
+  const currentSort = sortOptions[selectedTab];
+  
+  const { stories, loading, error, refetch } = useStories({
+    sort: currentSort,
+    limit: 20,
+  });
+  
   const bg = useColorModeValue('#dae0e6', '#0b1426');
+
+  const handleTabChange = (index: number) => {
+    setSelectedTab(index);
+  };
 
   return (
     <Box bg={bg} minH="100vh" pt="60px">
@@ -87,7 +64,7 @@ export default function Home() {
               {/* Sorting Tabs */}
               <Tabs
                 index={selectedTab}
-                onChange={setSelectedTab}
+                onChange={handleTabChange}
                 variant="soft-rounded"
                 colorScheme="orange"
               >
@@ -114,25 +91,115 @@ export default function Home() {
 
                 <TabPanels>
                   <TabPanel px={0}>
-                    <VStack spacing={4} align="stretch">
-                      {mockStories.map((story) => (
-                        <StoryCard key={story.id} story={story} />
-                      ))}
-                    </VStack>
+                    {loading ? (
+                      <VStack spacing={4} py={8}>
+                        <Spinner size="lg" color="orange.500" />
+                        <Text color="gray.500">Loading stories...</Text>
+                      </VStack>
+                    ) : error ? (
+                      <Alert status="error">
+                        <AlertIcon />
+                        <VStack align="flex-start" spacing={2}>
+                          <Text>{error}</Text>
+                          <Button size="sm" onClick={refetch}>
+                            Try Again
+                          </Button>
+                        </VStack>
+                      </Alert>
+                    ) : stories.length === 0 ? (
+                      <VStack spacing={4} py={8}>
+                        <Text color="gray.500">No stories found</Text>
+                        <Button onClick={refetch}>Refresh</Button>
+                      </VStack>
+                    ) : (
+                      <VStack spacing={4} align="stretch">
+                        {stories.map((story) => (
+                          <StoryCard 
+                            key={story.id} 
+                            story={{
+                              ...story,
+                              createdAt: new Date(story.created_at),
+                              isNarrated: story.is_narrated,
+                              audioUrl: story.audio_url,
+                            }} 
+                          />
+                        ))}
+                      </VStack>
+                    )}
                   </TabPanel>
                   <TabPanel px={0}>
-                    <VStack spacing={4} align="stretch">
-                      {mockStories.slice().reverse().map((story) => (
-                        <StoryCard key={story.id} story={story} />
-                      ))}
-                    </VStack>
+                    {loading ? (
+                      <VStack spacing={4} py={8}>
+                        <Spinner size="lg" color="orange.500" />
+                        <Text color="gray.500">Loading stories...</Text>
+                      </VStack>
+                    ) : error ? (
+                      <Alert status="error">
+                        <AlertIcon />
+                        <VStack align="flex-start" spacing={2}>
+                          <Text>{error}</Text>
+                          <Button size="sm" onClick={refetch}>
+                            Try Again
+                          </Button>
+                        </VStack>
+                      </Alert>
+                    ) : stories.length === 0 ? (
+                      <VStack spacing={4} py={8}>
+                        <Text color="gray.500">No stories found</Text>
+                        <Button onClick={refetch}>Refresh</Button>
+                      </VStack>
+                    ) : (
+                      <VStack spacing={4} align="stretch">
+                        {stories.map((story) => (
+                          <StoryCard 
+                            key={story.id} 
+                            story={{
+                              ...story,
+                              createdAt: new Date(story.created_at),
+                              isNarrated: story.is_narrated,
+                              audioUrl: story.audio_url,
+                            }} 
+                          />
+                        ))}
+                      </VStack>
+                    )}
                   </TabPanel>
                   <TabPanel px={0}>
-                    <VStack spacing={4} align="stretch">
-                      {mockStories.slice().sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()).map((story) => (
-                        <StoryCard key={story.id} story={story} />
-                      ))}
-                    </VStack>
+                    {loading ? (
+                      <VStack spacing={4} py={8}>
+                        <Spinner size="lg" color="orange.500" />
+                        <Text color="gray.500">Loading stories...</Text>
+                      </VStack>
+                    ) : error ? (
+                      <Alert status="error">
+                        <AlertIcon />
+                        <VStack align="flex-start" spacing={2}>
+                          <Text>{error}</Text>
+                          <Button size="sm" onClick={refetch}>
+                            Try Again
+                          </Button>
+                        </VStack>
+                      </Alert>
+                    ) : stories.length === 0 ? (
+                      <VStack spacing={4} py={8}>
+                        <Text color="gray.500">No stories found</Text>
+                        <Button onClick={refetch}>Refresh</Button>
+                      </VStack>
+                    ) : (
+                      <VStack spacing={4} align="stretch">
+                        {stories.map((story) => (
+                          <StoryCard 
+                            key={story.id} 
+                            story={{
+                              ...story,
+                              createdAt: new Date(story.created_at),
+                              isNarrated: story.is_narrated,
+                              audioUrl: story.audio_url,
+                            }} 
+                          />
+                        ))}
+                      </VStack>
+                    )}
                   </TabPanel>
                 </TabPanels>
               </Tabs>

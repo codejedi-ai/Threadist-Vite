@@ -14,12 +14,14 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
+import { useStory } from '../hooks/useStory';
 import { FaPlay, FaPause, FaVolumeUp, FaShare, FaBookmark } from 'react-icons/fa';
 import { BiUpvote, BiDownvote } from 'react-icons/bi';
 import { formatDistanceToNow } from 'date-fns';
 
 export default function Story() {
   const { subreddit, postId } = useParams();
+  const { story, loading, error } = useStory(postId);
   const [isPlaying, setIsPlaying] = useState(false);
   const [userVote, setUserVote] = useState<'up' | 'down' | null>(null);
   const [comment, setComment] = useState('');
@@ -29,32 +31,6 @@ export default function Story() {
   const borderColor = useColorModeValue('gray.200', '#343536');
   const textColor = useColorModeValue('gray.600', 'gray.400');
 
-  // Mock story data
-  const story = {
-    id: postId || '1',
-    title: 'I found a door in my basement that wasn\'t there yesterday',
-    content: `This happened three days ago, and I still can't wrap my head around it. I've lived in this house for over ten years, and I know every inch of it like the back of my hand. The basement has always been my workshop - tools organized on pegboards, workbench in the corner, concrete walls painted white to make the space feel less dungeon-like.
-
-But when I went down there Tuesday morning to grab my drill, there was a door. A wooden door, painted the same white as the walls, with a brass handle that looked like it had been there for decades. The thing is, I painted those walls myself five years ago. There was no door.
-
-I stood there for what felt like hours, just staring at it. My rational mind was trying to come up with explanations. Maybe I had forgotten? Maybe it was always there and I just never noticed? But that's impossible. I've been down in that basement thousands of times. I would have noticed a door.
-
-The door was positioned between my workbench and the water heater, in a spot where I definitely would have bumped into it countless times. Yet there it was, looking like it had always belonged there. The paint wasn't fresh - it had the same slight yellowing and small scuffs that the rest of the basement walls had accumulated over the years.
-
-I reached for the handle, then stopped. Something felt wrong. Not just the impossibility of the door's existence, but something else. A feeling, like when you're alone in the house but can't shake the sensation that someone is watching you.
-
-The brass handle was cold under my palm, colder than it should have been in the basement's consistent temperature. I turned it slowly, and it moved smoothly, well-oiled hinges making no sound as the door swung open.
-
-What I saw on the other side changed everything I thought I knew about my house, my neighborhood, and maybe reality itself...`,
-    author: 'throwaway_scared123',
-    subreddit: subreddit || 'nosleep',
-    upvotes: 2847,
-    comments: 312,
-    createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000),
-    isNarrated: true,
-    audioUrl: '/audio/story1.mp3'
-  };
-
   const handleVote = (voteType: 'up' | 'down') => {
     setUserVote(userVote === voteType ? null : voteType);
   };
@@ -63,6 +39,36 @@ What I saw on the other side changed everything I thought I knew about my house,
     setIsPlaying(!isPlaying);
     // Audio playback logic would go here
   };
+
+  if (loading) {
+    return (
+      <Box bg={bg} minH="100vh" pt="60px">
+        <Container maxW="800px" py={6}>
+          <VStack spacing={6} align="center">
+            <Spinner size="lg" color="orange.500" />
+            <Text color="gray.500">Loading story...</Text>
+          </VStack>
+        </Container>
+      </Box>
+    );
+  }
+
+  if (error || !story) {
+    return (
+      <Box bg={bg} minH="100vh" pt="60px">
+        <Container maxW="800px" py={6}>
+          <VStack spacing={6} align="center">
+            <Text fontSize="xl" color="red.500">
+              {error || 'Story not found'}
+            </Text>
+            <Button colorScheme="orange" onClick={() => window.history.back()}>
+              Go Back
+            </Button>
+          </VStack>
+        </Container>
+      </Box>
+    );
+  }
 
   return (
     <Box bg={bg} minH="100vh" pt="60px">
@@ -114,13 +120,13 @@ What I saw on the other side changed everything I thought I knew about my house,
                     <Text>•</Text>
                     <Text>Posted by u/{story.author}</Text>
                     <Text>•</Text>
-                    <Text>{formatDistanceToNow(story.createdAt)} ago</Text>
+                    <Text>{formatDistanceToNow(new Date(story.created_at))} ago</Text>
                   </HStack>
                   <HStack justify="space-between" w="full">
                     <Text fontSize="xl" fontWeight="bold" lineHeight="1.3">
                       {story.title}
                     </Text>
-                    {story.isNarrated && (
+                    {story.is_narrated && (
                       <Badge colorScheme="green" variant="subtle">
                         <HStack spacing={1}>
                           <FaVolumeUp size={10} />
@@ -132,7 +138,7 @@ What I saw on the other side changed everything I thought I knew about my house,
                 </VStack>
 
                 {/* Audio Player */}
-                {story.isNarrated && (
+                {story.is_narrated && (
                   <Box
                     bg={useColorModeValue('orange.50', 'orange.900')}
                     p={4}
@@ -185,7 +191,7 @@ What I saw on the other side changed everything I thought I knew about my house,
                   >
                     Save
                   </Button>
-                  {!story.isNarrated && (
+                  {!story.is_narrated && (
                     <Button
                       leftIcon={<FaVolumeUp />}
                       variant="outline"
