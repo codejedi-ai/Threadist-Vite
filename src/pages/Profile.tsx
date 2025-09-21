@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react';
 import { FaVolumeUp, FaBookmark, FaHistory } from 'react-icons/fa';
 import { useAuth0 } from '@auth0/auth0-react';
-import Profile from '../components/auth/Profile';
+import AuthProfile from '../components/auth/Profile';
 
 export default function Profile() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -58,7 +58,7 @@ export default function Profile() {
       <Container maxW="1000px" py={6}>
         <VStack spacing={6} align="stretch">
           {/* Profile Header */}
-          <Profile />
+          <AuthProfile />
 
           {/* Stats */}
           <SimpleGrid columns={{ base: 2, md: 4 }} spacing={4}>
