@@ -7,7 +7,6 @@ import {
   Text,
   Button,
   useColorModeValue,
-  Avatar,
   Badge,
   Tabs,
   TabList,
@@ -15,48 +14,51 @@ import {
   Tab,
   TabPanel,
   SimpleGrid,
+  Spinner,
 } from '@chakra-ui/react';
 import { FaVolumeUp, FaBookmark, FaHistory } from 'react-icons/fa';
+import { useAuth0 } from '@auth0/auth0-react';
+import Profile from '../components/auth/Profile';
 
 export default function Profile() {
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const bg = useColorModeValue('#dae0e6', '#0b1426');
   const cardBg = useColorModeValue('white', '#1a1a1b');
   const borderColor = useColorModeValue('gray.200', '#343536');
+
+  if (isLoading) {
+    return (
+      <Box bg={bg} minH="100vh" pt="60px">
+        <Container maxW="1000px" py={6}>
+          <VStack spacing={6} align="center">
+            <Spinner size="lg" color="orange.500" />
+            <Text color="gray.500">Loading profile...</Text>
+          </VStack>
+        </Container>
+      </Box>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <Box bg={bg} minH="100vh" pt="60px">
+        <Container maxW="1000px" py={6}>
+          <VStack spacing={6} align="center">
+            <Text fontSize="xl" color="gray.500">
+              Please log in to view your profile
+            </Text>
+          </VStack>
+        </Container>
+      </Box>
+    );
+  }
 
   return (
     <Box bg={bg} minH="100vh" pt="60px">
       <Container maxW="1000px" py={6}>
         <VStack spacing={6} align="stretch">
           {/* Profile Header */}
-          <Box
-            bg={cardBg}
-            border="1px solid"
-            borderColor={borderColor}
-            borderRadius="md"
-            p={6}
-          >
-            <HStack spacing={6}>
-              <Avatar size="xl" name="User" bg="orange.500" />
-              <VStack align="flex-start" spacing={2} flex={1}>
-                <Text fontSize="2xl" fontWeight="bold">
-                  u/username
-                </Text>
-                <HStack spacing={4}>
-                  <Badge colorScheme="orange">Premium Member</Badge>
-                  <Badge colorScheme="green">
-                    <HStack spacing={1}>
-                      <FaVolumeUp size={10} />
-                      <Text fontSize="xs">Audio Enthusiast</Text>
-                    </HStack>
-                  </Badge>
-                </HStack>
-                <Text color="gray.500">
-                  Member since January 2024 • 1,247 stories listened to
-                </Text>
-              </VStack>
-              <Button colorScheme="orange">Edit Profile</Button>
-            </HStack>
-          </Box>
+          <Profile />
 
           {/* Stats */}
           <SimpleGrid columns={{ base: 2, md: 4 }} spacing={4}>

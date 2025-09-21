@@ -18,7 +18,8 @@ import {
 } from '@chakra-ui/react';
 import { FaPlay, FaVolumeUp, FaReddit, FaRocket, FaUsers, FaClock } from 'react-icons/fa';
 import { Link as RouterLink } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth0 } from '@auth0/auth0-react';
+import LoginButton from '../components/auth/LoginButton';
 import WaitlistModal from '../components/waitlist/WaitlistModal';
 
 const FeatureCard = ({ icon, title, description }: { icon: any, title: string, description: string }) => {
@@ -115,7 +116,7 @@ export default function Landing() {
     'linear(to-br, orange.600, red.700)'
   );
   
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth0();
   const { isOpen: isWaitlistOpen, onOpen: onWaitlistOpen, onClose: onWaitlistClose } = useDisclosure();
 
   return (
@@ -145,7 +146,7 @@ export default function Landing() {
               </VStack>
               
               <HStack spacing={4}>
-                {user ? (
+                {isAuthenticated ? (
                   <Button
                     as={RouterLink}
                     to="/home"
@@ -158,16 +159,13 @@ export default function Landing() {
                     Start Listening
                   </Button>
                 ) : (
-                  <Button
+                  <LoginButton
                     size="lg"
                     colorScheme="yellow"
-                    color="black"
                     leftIcon={<FaUsers />}
-                    onClick={onWaitlistOpen}
-                    _hover={{ transform: 'translateY(-2px)' }}
                   >
                     Join Waitlist
-                  </Button>
+                  </LoginButton>
                 )}
                 <Button
                   size="lg"
@@ -307,7 +305,7 @@ export default function Landing() {
                 Join thousands of users who have discovered the magic of AI-narrated Reddit stories
               </Text>
               <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
-                {user ? (
+                {isAuthenticated ? (
                   <Button
                     as={RouterLink}
                     to="/home"
@@ -319,15 +317,13 @@ export default function Landing() {
                     Start Listening Now
                   </Button>
                 ) : (
-                  <Button
+                  <LoginButton
                     size="lg"
                     colorScheme="yellow"
-                    color="black"
                     leftIcon={<FaUsers />}
-                    onClick={onWaitlistOpen}
                   >
                     Join Waitlist
-                  </Button>
+                  </LoginButton>
                 )}
                 <Button
                   size="lg"
