@@ -17,7 +17,7 @@ import {
 import { useParams } from 'react-router-dom';
 import { useStory } from '../hooks/useStory';
 import { FaPlay, FaPause, FaVolumeUp, FaShare, FaBookmark } from 'react-icons/fa';
-import { BiUpvote, BiDownvote } from 'react-icons/bi';
+import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { formatDistanceToNow } from 'date-fns';
 
 export default function Story() {
@@ -93,7 +93,7 @@ export default function Story() {
               >
                 <IconButton
                   aria-label="Upvote"
-                  icon={<BiUpvote />}
+                  icon={<ChevronUpIcon />}
                   size="md"
                   variant="ghost"
                   color={userVote === 'up' ? 'orange.500' : 'gray.400'}
@@ -104,7 +104,7 @@ export default function Story() {
                 </Text>
                 <IconButton
                   aria-label="Downvote"
-                  icon={<BiDownvote />}
+                  icon={<ChevronDownIcon />}
                   size="md"
                   variant="ghost"
                   color={userVote === 'down' ? 'blue.500' : 'gray.400'}

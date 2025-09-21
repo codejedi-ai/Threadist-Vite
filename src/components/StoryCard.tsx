@@ -13,7 +13,6 @@ import {
 } from '@chakra-ui/react';
 import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { FaPlay, FaPause, FaVolumeUp, FaComments, FaShare } from 'react-icons/fa';
-import { BiUpvote, BiDownvote } from 'react-icons/bi';
 import { formatDistanceToNow } from 'date-fns';
 
 interface StoryCardProps {
@@ -69,7 +68,7 @@ export default function StoryCard({ story }: StoryCardProps) {
         >
           <IconButton
             aria-label="Upvote"
-            icon={<BiUpvote />}
+            icon={<ChevronUpIcon />}
             size="sm"
             variant="ghost"
             color={userVote === 'up' ? 'orange.500' : 'gray.400'}
@@ -80,7 +79,7 @@ export default function StoryCard({ story }: StoryCardProps) {
           </Text>
           <IconButton
             aria-label="Downvote"
-            icon={<BiDownvote />}
+            icon={<ChevronDownIcon />}
             size="sm"
             variant="ghost"
             color={userVote === 'down' ? 'blue.500' : 'gray.400'}
