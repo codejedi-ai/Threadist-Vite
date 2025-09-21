@@ -12,6 +12,7 @@ import {
   Badge,
   IconButton,
   Textarea,
+  Spinner,
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { useStory } from '../hooks/useStory';
